@@ -1,0 +1,80 @@
+{
+  "title": "Crypto Trend 2023",
+  "time": "15 Days ago",
+  "type": "news",
+  "user": {
+    "name": "Admin",
+    "imgLetter": "a"
+  },
+  "commentsCount": 24,
+  "viewsCount": "774k",
+  "commentCard": {
+    "user": {
+      "picture": "/assets/img/team/3.jpeg",
+      "name": "Russel B."
+    },
+    "date": "@russelb  - 15 Dec, 2022",
+    "text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum sed ut perspiciatis unde. Lorem ispum dolor sit amet"
+  },
+  "comments": [
+    {
+      "user": {
+        "picture": "/assets/img/team/2.jpeg",
+        "name": "Robert Downey Jr"
+      },
+      "time": "3 hours ago",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Atume nusaate staman utra phone limo sumeria",
+      "replies": [
+        {
+          "user": {
+            "picture": "/assets/img/team/5.jpeg",
+            "name": "Tobey McGuire"
+          },
+          "time": "2 dayes ago",
+          "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Atume nusaate staman utra phone limo sumeria"
+        }
+      ]
+    },
+    {
+      "user": {
+        "picture": "/assets/img/team/4.jpeg",
+        "name": "Ben Chiwell"
+      },
+      "time": "December 25, 2022",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Atume nusaate staman utra phone limo sumeria",
+      "replies": []
+    }
+  ],
+  "sidebar": {
+    "recentPosts": [
+      { "title": "Crypto Trend 2023", "image": "/assets/img/blog/1.jpeg" },
+      { "title": "How To Become Web Developer", "image": "/assets/img/blog/2.jpeg" },
+      { "title": "Wireframe for UI/UX", "image": "/assets/img/blog/3.jpeg" },
+      { "title": "AI With Fingerprint", "image": "/assets/img/blog/7.png" }
+    ],
+    "categories": [
+      { "title": "all", "count": 265 },
+      { "title": "News", "count": 38 },
+      { "title": "Technology", "count": 16 },
+      { "title": "Tips & Tricks", "count": 85 },
+      { "title": "Career", "count": 21 },
+      { "title": "Community", "count": 874 },
+      { "title": "Videos", "count": 54 },
+      { "title": "Others", "count": 85 }
+    ],
+    "instagram": [
+      "/assets/img/blog/1.jpeg",
+      "/assets/img/blog/10.png",
+      "/assets/img/blog/11.png",
+      "/assets/img/blog/12.png",
+      "/assets/img/blog/2.jpeg",
+      "/assets/img/blog/3.jpeg"
+    ],
+    "tags": [
+      "WordPress", "PHP", "HTML/CSS",
+      "Figma", "Technology", "Marketing",
+      "Consultation", "Seo", "Envato",
+      "Psd"
+    ]
+  }
+}

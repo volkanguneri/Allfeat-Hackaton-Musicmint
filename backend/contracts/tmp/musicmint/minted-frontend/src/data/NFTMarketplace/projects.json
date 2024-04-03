@@ -1,0 +1,94 @@
+{
+  "filters": [
+    {
+      "filter": "all",
+      "text": "All Category"
+    },
+    {
+      "filter": ".art",
+      "text": "Art"
+    },
+    {
+      "filter": ".virtual",
+      "text": "Virtual Worlds"
+    },
+    {
+      "filter": ".photography",
+      "text": "Photography"
+    }
+  ],
+  "projects": [
+    {
+      "filter": "art",
+      "hearts": "14",
+      "sort": "1.00",
+      "image": "/assets/img/projects/nf1.png",
+      "bid": "6/50",
+      "title": "Pakora Vision #190",
+      "placeBit": "10"
+    },
+    {
+      "filter": "virtual",
+      "hearts": "12",
+      "sort": "0.99",
+      "image": "/assets/img/projects/nf2.png",
+      "bid": "4/40",
+      "title": "Cyber Punk #189",
+      "placeBit": "2"
+    },
+    {
+      "filter": "photography",
+      "hearts": "12",
+      "sort": "0.99",
+      "image": "/assets/img/projects/nf3.png",
+      "bid": "4/40",
+      "title": "Cyber Hunter #22",
+      "placeBit": "9"
+    },
+    {
+      "filter": "photography",
+      "hearts": "33",
+      "sort": "1.09",
+      "image": "/assets/img/projects/nf4.png",
+      "bid": "19/99",
+      "title": "Creed Mirage #85",
+      "placeBit": "20"
+    },
+    {
+      "filter": "virtual",
+      "hearts": "10",
+      "sort": "0.77",
+      "image": "/assets/img/projects/nf5.png",
+      "bid": "15/80",
+      "title": "Korola Vhaji #191",
+      "placeBit": "5"
+    },
+    {
+      "filter": "art",
+      "hearts": "21",
+      "sort": "0.39",
+      "image": "/assets/img/projects/nf6.png",
+      "bid": "6/50",
+      "title": "Kacchi Biriyani #205",
+      "placeBit": "8"
+    },
+    {
+      "filter": "art",
+      "hearts": "21",
+      "sort": "1.01",
+      "image": "/assets/img/projects/nf7.png",
+      "bid": "6/50",
+      "title": "iOs Punk Series #190",
+      "placeBit": "6"
+    },
+    {
+      "filter": "photography",
+      "hearts": "21",
+      "sort": "1.01",
+      "image": "/assets/img/projects/nf8.png",
+      "bid": "6/50",
+      "title": "Humble Assasin #199",
+      "placeBit": "6"
+    }
+  ]
+}

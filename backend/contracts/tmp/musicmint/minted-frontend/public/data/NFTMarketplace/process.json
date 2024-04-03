@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "/assets/img/icons/1.png",
+    "title": "Connect Wallet",
+    "details": "An cryptocurrency is a digital currency, which",
+    "step": "01"
+  },
+  {
+    "icon": "/assets/img/icons/2.png",
+    "title": "Create Collections",
+    "details": "Is an alternative form of payment created use encryption",
+    "step": "02"
+  },
+  {
+    "icon": "/assets/img/icons/3.png",
+    "title": "Add Your NFTs",
+    "details": "Algorithms. The use of encryto technologies",
+    "step": "03"
+  },
+  {
+    "icon": "/assets/img/icons/4.png",
+    "title": "Sell Your NFTs",
+    "details": "Means that cryptocurrencies function both",
+    "step": "04"
+  }
+]

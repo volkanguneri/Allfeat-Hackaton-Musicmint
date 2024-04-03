@@ -1,0 +1,3 @@
+[workspace]
+members = ["minted-contracts/admins", "minted-contracts/albums"]
+resolver = "2"

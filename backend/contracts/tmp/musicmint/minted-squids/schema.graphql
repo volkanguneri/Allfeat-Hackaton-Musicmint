@@ -1,0 +1,20 @@
+type Owner @entity {
+  id: ID!
+  balance: BigInt!
+}
+ 
+
+
+
+type Transfer @entity {
+  id: ID!
+  block: Int! @index
+  timestamp: DateTime! @index
+  extrinsicHash: String @index
+  from: String! @index
+  to: String! @index
+  role: String @index
+  amount: BigInt! @index
+  fee: BigInt! # fee is calculated at the best effort and may be zero for some old extrinsics
+  contract: ID!
+}

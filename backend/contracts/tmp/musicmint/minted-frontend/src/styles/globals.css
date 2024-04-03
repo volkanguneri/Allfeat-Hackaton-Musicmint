@@ -1,0 +1,52 @@
+html, body {
+  overflow-x: hidden;
+}
+
+.modal-video {
+  background: rgba(0, 0, 0, 0.9) !important;
+}
+
+.lg-backdrop {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.lg-react-element {
+  display: none;
+}
+
+.lg-container, .lg-container * {
+  direction: ltr !important;
+}
+
+.related-products-slider .swiper-container,
+.slider-3items .swiper-container,
+.screenshots-slider .swiper-container {
+  direction: ltr !important;
+}
+
+
+.pricing.style-8 .rc-slider-handle {
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+
+.home-project-slider .swiper-button-next,
+.home-project-slider .swiper-button-prev{
+  background: transparent;
+  top: 55%;
+}
+
+.home-project-slider .swiper-pagination{
+  bottom: -30px !important;
+}
+
+.album-bottom-border{
+  border-bottom: 1px solid;
+}
+
+.word-limit{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 300px;
+}

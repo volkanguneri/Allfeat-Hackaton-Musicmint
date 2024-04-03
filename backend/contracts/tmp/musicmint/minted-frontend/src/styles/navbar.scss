@@ -1,0 +1,26 @@
+.mousePointer {
+  cursor: pointer;
+}
+
+.wallet-connect {
+  background-color: #15141a;
+  color: white;
+  li {
+    cursor: pointer;
+    border-bottom: 0.5px solid #777e91;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    div {
+      align-items: center;
+      &:hover,
+      &:focus {
+        p {
+          color: black;
+        }
+      }
+      p {
+        color: white;
+      }
+    }
+  }
+}

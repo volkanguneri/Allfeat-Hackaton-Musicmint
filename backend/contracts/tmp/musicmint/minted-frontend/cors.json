@@ -1,0 +1,28 @@
+{
+    "CORSRules": [
+        {
+            "AllowedHeaders": [
+                "*"
+            ],
+            "AllowedMethods": [
+                "GET",
+                "HEAD",
+                "PUT",
+                "POST",
+                "DELETE"
+            ],
+            "AllowedOrigins": [
+                "https://demo.mintedwaves.com",
+                "https://mintedwaves.com",
+                "http://localhost:3000"
+            ],
+            "ExposeHeaders": [
+                "Access-Control-Allow-Origin",
+                "Content-Length",
+                "Content-Type",
+                "x-amz-meta-cid"
+            ],
+            "MaxAgeSeconds": 3000
+        }
+    ]
+}

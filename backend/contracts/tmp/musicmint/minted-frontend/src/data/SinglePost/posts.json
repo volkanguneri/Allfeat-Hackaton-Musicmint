@@ -1,0 +1,35 @@
+[
+  {
+    "image": "/assets/img/blog/1.jpeg",
+    "type": "News",
+    "time": "3 Days ago",
+    "title": "Crypto Trend 2023",
+    "short_desc": "If there’s one way that wireless technology has changed the way we work.",
+    "userImgLetter": "a",
+    "username": "Admin",
+    "comments": "24",
+    "views": "774k"
+  },
+  {
+    "image": "/assets/img/blog/7.png",
+    "type": "News",
+    "time": "3 Days ago",
+    "title": "AI With Fingerprint",
+    "short_desc": "If there’s one way that wireless technology has changed the way we work.",
+    "userImgLetter": "a",
+    "username": "Admin",
+    "comments": "24",
+    "views": "774k"
+  },
+  {
+    "image": "/assets/img/blog/5.png",
+    "type": "News",
+    "time": "3 Days ago",
+    "title": "NFT Game! New Oppoturnity",
+    "short_desc": "If there’s one way that wireless technology has changed the way we work.",
+    "userImgLetter": "a",
+    "username": "Admin",
+    "comments": "24",
+    "views": "774k"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "image": "/assets/img/blog/1.jpeg",
+    "type": "اخبار",
+    "time": "منذ 3 ايام",
+    "title": "اتجاه التشفير 2023",
+    "short_desc": "إذا كانت هناك طريقة واحدة غيرت بها التكنولوجيا اللاسلكية طريقة عملنا.",
+    "userImgLetter": "a",
+    "username": "الادمن",
+    "comments": "24",
+    "views": "774k"
+  },
+  {
+    "image": "/assets/img/blog/7.png",
+    "type": "اخبار",
+    "time": "منذ 3 ايام",
+    "title": "AI مع بصمة الإصبع",
+    "short_desc": "إذا كانت هناك طريقة واحدة غيرت بها التكنولوجيا اللاسلكية طريقة عملنا.",
+    "userImgLetter": "a",
+    "username": "الادمن",
+    "comments": "24",
+    "views": "774k"
+  },
+  {
+    "image": "/assets/img/blog/5.png",
+    "type": "اخبار",
+    "time": "منذ 3 ايام",
+    "title": "لعبة NFT! فرصة جديدة",
+    "short_desc": "إذا كانت هناك طريقة واحدة غيرت بها التكنولوجيا اللاسلكية طريقة عملنا.",
+    "userImgLetter": "a",
+    "username": "الادمن",
+    "comments": "24",
+    "views": "774k"
+  }
+]

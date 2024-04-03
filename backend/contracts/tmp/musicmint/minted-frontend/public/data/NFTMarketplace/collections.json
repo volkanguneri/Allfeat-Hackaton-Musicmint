@@ -1,0 +1,57 @@
+[
+  {
+    "name": "SnoopDogg",
+    "items": 100,
+    "pic": "/assets/img/testimonials/user1.jpeg",
+    "image": "/assets/img/collections/1.jpg",
+    "subImages": [
+      "/assets/img/collections/16.jpg",
+      "/assets/img/collections/2.jpg",
+      "/assets/img/collections/3.jpg"
+    ]
+  },
+  {
+    "name": "HilixDesign",
+    "items": 100,
+    "pic": "/assets/img/testimonials/user2.jpeg",
+    "image": "/assets/img/collections/4.jpg",
+    "subImages": [
+      "/assets/img/collections/5.jpg",
+      "/assets/img/collections/6.jpg",
+      "/assets/img/collections/7.jpg"
+    ]
+  },
+  {
+    "name": "ThemeCamp",
+    "items": 100,
+    "pic": "/assets/img/testimonials/user3.jpeg",
+    "image": "/assets/img/collections/8.jpg",
+    "subImages": [
+      "/assets/img/collections/9.jpg",
+      "/assets/img/collections/10.jpg",
+      "/assets/img/collections/11.jpg"
+    ]
+  },
+  {
+    "name": "ThemeCamp",
+    "items": 100,
+    "pic": "/assets/img/testimonials/user4.png",
+    "image": "/assets/img/collections/12.jpg",
+    "subImages": [
+      "/assets/img/collections/13.jpg",
+      "/assets/img/collections/14.jpg",
+      "/assets/img/collections/15.jpg"
+    ]
+  },
+  {
+    "name": "ThemeCamp",
+    "items": 100,
+    "pic": "/assets/img/testimonials/user3.jpeg",
+    "image": "/assets/img/collections/8.jpg",
+    "subImages": [
+      "/assets/img/collections/9.jpg",
+      "/assets/img/collections/10.jpg",
+      "/assets/img/collections/11.jpg"
+    ]
+  }
+]

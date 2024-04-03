@@ -1,0 +1,27 @@
+name: MintedWave
+on:
+  push:
+    branches:
+      - frontend
+  workflow_dispatch: 
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.MAIN_HOST }}
+          username: ${{ secrets.MAIN_USER }}
+          password: ${{ secrets.MAIN_PASSWORD }}
+          port: "22"
+          script: |
+            cd workspace/minted
+            git checkout frontend
+            git fetch
+            git pull
+            cd minted-frontend
+            pm2 stop test
+            rm -rf .next out
+            yarn build
+            pm2 restart test
