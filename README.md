@@ -1,7 +1,7 @@
-##Dependencies
+##Dependencies##
 
-#backend
+#backend#
 yarn install
 
-#frontend
+#frontend#
 npm install
