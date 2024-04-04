@@ -102,13 +102,22 @@ describe("Admins", function () {
 
 
 
-   // describe("Events", function () {
-   //   it("Should emit an event on addAdmin", async function () {
-      //   await expect(lock.withdraw())
-      //     .to.emit(lock, "Withdrawal")
-      //     .withArgs(lockedAmount, anyValue); // We accept any value as `when` arg
-     //  });
-   // });
+  describe("Events", function () {
+    
+    it("Should emit an event on addAdmin", async function () {
+      await expect(admins.addAdmin(addr1.address,addr1.address))
+      .to.emit(admins, 'Granted')
+      .withArgs( owner.address,addr1.address, 1, anyValue);
+    });
+
+    it("Should emit an event on addSuperAdmin", async function () {
+      await expect(admins.addSuperAdmin(addr2.address))
+      .to.emit(admins, 'Granted')
+      .withArgs(owner.address,addr2.address, 2, anyValue );
+    });
+
+
+  })
 
     // describe("Transfers", function () {
     //   it("Should transfer the funds to the owner", async function () {

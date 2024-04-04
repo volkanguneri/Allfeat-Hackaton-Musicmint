@@ -67,12 +67,6 @@ contract Admins is Ownable{
     * @return bool Returns true if the address is not a super admin, false if it already exists as a super admin.
     */
     function ensureSuperAdminDoNotExist(address _addr) internal view returns (bool){
-        // for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
-        //     if (superAdminsAccounts[i] == _addr) {
-        //        return false;
-        //     }
-        // }
-        // return true;
         return uint(adminRoles[_addr]) == uint(Role.None);
     }
 
