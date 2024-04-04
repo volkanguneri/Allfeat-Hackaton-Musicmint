@@ -16,24 +16,53 @@ import { hardhat } from "viem/chains";
 
 const admin = () => {
   return (
-    <main className="flex justify-center items-center flex-col mb-80">
-      <form id="artistForm" className="flex justify-center items-center gap-4">
-        <label for="artistName" className="text-2xl">
-          Artist:
+    <main className="flex justify-center items-center flex-col mb-60 gap-8">
+      <form
+        id="artistForm"
+        className="flex justify-center items-center flex-col gap-4"
+      >
+        <label for="admin" className="text-2xl">
+          Admin
         </label>
-        <input
-          type="text"
-          id="artistName"
-          name="artistName"
-          className="p-1"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-[#cef54b] text-[#15141a] rounded p-1"
-        >
-          Ajouter
-        </button>
+        <div className="flex gap-4">
+          <input
+            type="text"
+            id="artistName"
+            name="artistName"
+            className="text-[#15141a] p-1 rounded"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-[#cef54b] text-[#15141a] rounded p-1"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+
+      <form
+        id="artistForm"
+        className="flex justify-center items-center flex-col gap-4"
+      >
+        <label for="artist" className="text-2xl">
+          Artist
+        </label>
+        <div className="flex gap-4">
+          <input
+            type="text"
+            id="artistName"
+            name="artistName"
+            className="text-[#15141a] p-1 rounded"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-[#cef54b] text-[#15141a] rounded p-1"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </main>
   );
