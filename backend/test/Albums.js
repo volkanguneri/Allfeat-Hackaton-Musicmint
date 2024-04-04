@@ -2,7 +2,7 @@ const {
   loadFixture,
 } = require("@nomicfoundation/hardhat-toolbox/network-helpers");
 const { ethers } = require("hardhat");
-const { utils } = require("ethers");
+require("ethers");
 const { expect } = require("chai");
 
 describe("Albums test", async function () {
@@ -10,7 +10,8 @@ describe("Albums test", async function () {
     const [owner, otherAccount1] = await ethers.getSigners();
 
     const Albums = await ethers.getContractFactory("Albums");
-    const albums = await Albums.deploy(owner.address);
+    const albums = await Albums.deploy();
+    await albums.initialize(owner.address);
 
     return { albums, owner, otherAccount1 };
   };
