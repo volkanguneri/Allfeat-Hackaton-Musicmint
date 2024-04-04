@@ -36,12 +36,12 @@ describe("Admins", function () {
     });
 
     it("Should not downgrade a super admin", async function () {
-      await expect(admins.addAdmin(owner.address, owner.address)).to.be.revertedWith("role already set");
+      await expect(admins.addAdmin(owner.address, owner.address)).to.be.revertedWith("admin exists");
     });
 
     it("Should fail if admin already exists", async function () {
       await admins.addAdmin(addr1.address, addr1.address);
-      await expect(admins.addAdmin(addr1.address, addr1.address)).to.be.revertedWith("role already set");
+      await expect(admins.addAdmin(addr1.address, addr1.address)).to.be.revertedWith("admin exists");
     });
 
     it("Should setup adminRoles and adminsContracts", async function () {
@@ -51,6 +51,20 @@ describe("Admins", function () {
        // todo : fix with the deployed contract
     });
 
+  });
+
+  describe("removeAdmin", function () {
+
+    it("Should not be used without super privilegies", async function () {
+      await expect(admins.connect(addr1).removeAdmin(addr2.address)).to.be.reverted;
+    });
+
+    it("Should clean adminRoles", async function () {
+      await admins.addAdmin(addr1.address,addr1.address );
+      await admins.removeAdmin(addr1.address);
+      await expect( await admins.adminRoles(addr1.address)).to.equal(0);
+    });
+    
   });
 
   describe("addSuperAdmin", function () {
@@ -71,6 +85,22 @@ describe("Admins", function () {
     });
     
   });
+
+  describe("removeSuperAdmin", function () {
+
+    it("Should not be used without super privilegies", async function () {
+      await expect(admins.connect(addr1).removeSuperAdmin(addr2.address)).to.be.reverted;
+    });
+
+    it("Should clean adminRoles", async function () {
+      await admins.addSuperAdmin(addr1.address);
+      await admins.removeSuperAdmin(addr1.address);
+      await expect( await admins.adminRoles(addr1.address)).to.equal(0);
+    });
+    
+  });
+
+
 
    // describe("Events", function () {
    //   it("Should emit an event on addAdmin", async function () {
