@@ -1,23 +1,24 @@
 require("@nomicfoundation/hardhat-toolbox");
-require('dotenv').config();
+require("dotenv").config();
 
-/** @type import('hardhat/config').HardhatUserConfig */
+// import("hardhat/config").HardhatUserConfig;
+
 module.exports = {
   solidity: "0.8.24",
   settings: {
     optimizer: {
       enabled: true,
-      runs: 200
-    }
+      runs: 200,
+    },
   },
   defaultNetwork: "hardhat",
   networks: {
     localhost: {
       url: "http://127.0.0.1:8545",
-      //accounts : from hardhat 
       chainId: 31337,
       gas: 5000000,
     },
+
     // mumbai: {
     //   url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
     //   accounts: [`0x${PRIVATE_KEY}`],
