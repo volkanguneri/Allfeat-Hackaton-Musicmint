@@ -10,7 +10,7 @@ contract Admins is Ownable{
         /// Grantee of the role.
         address to,
         /// The role granted.
-        uint role,
+        Role role,
         address contractt
     );
 
@@ -22,25 +22,20 @@ contract Admins is Ownable{
     // Mapping of the user roles.
     mapping(address => Role) public admins;
     mapping(address => address) public admins_contracts;
-    address[] public adminsAccounts;
-    address[] public super_adminsAccounts;
+    address[] public admins_accounts;
+    address[] private super_admins_accounts;
     // Owner of the smart contract.
-    //address public owner;
     constructor(address initialOwner) Ownable(initialOwner){
-        admins[initialOwner] = Role(2);
+        admins[initialOwner] = Role.SuperAdmin;
     }
 
-    //function ensure_owner(address _addr) internal view returns (bool){
-    //    return owner == _addr;
-    //}
-
     function ensure_super_admin(address _addr) internal view returns (bool){
-        return uint(admins[_addr]) == 2;
+        return uint(admins[_addr]) == uint(Role.SuperAdmin);
     }
 
     function ensure_admin_do_not_exist(address _addr) internal view returns (bool){
-        for (uint256 i = 0; i < super_adminsAccounts.length; i++) {
-            if (adminsAccounts[i] == _addr) {
+        for (uint256 i = 0; i < super_admins_accounts.length; i++) {
+            if (admins_accounts[i] == _addr) {
                return false;
             }
         }
@@ -48,8 +43,8 @@ contract Admins is Ownable{
     }
 
     function ensure_superadmin_do_not_exist(address _addr) internal view returns (bool){
-        for (uint256 i = 0; i < super_adminsAccounts.length; i++) {
-            if (super_adminsAccounts[i] == _addr) {
+        for (uint256 i = 0; i < super_admins_accounts.length; i++) {
+            if (super_admins_accounts[i] == _addr) {
                return false;
             }
         }
@@ -63,34 +58,34 @@ contract Admins is Ownable{
         require(ensure_admin_do_not_exist(_addr));
         // todo factory call to deploy the contract and get the deployment address deployment address
         address _deployedTO = address(0);
-        admins[_addr] = Role(2);
-        super_adminsAccounts.push(_addr);
-        emit Granted(msg.sender,_addr, 2, _deployedTO);
+        admins[_addr] = Role.SuperAdmin;
+        super_admins_accounts.push(_addr);
+        emit Granted(msg.sender,_addr, Role.SuperAdmin, _deployedTO);
     }
 
     /// @dev Remove a superAdmin.
     function remove_super_admin(address _addr) external onlyOwner {
-        for (uint256 i = 0; i < super_adminsAccounts.length; i++) {
-            if (super_adminsAccounts[i] == _addr) {
-               delete super_adminsAccounts[i];
+        for (uint256 i = 0; i < super_admins_accounts.length; i++) {
+            if (super_admins_accounts[i] == _addr) {
+               delete super_admins_accounts[i];
             }
         }
         //address _deployedTO = address(0);
-        admins[_addr] = Role(0);
-        super_adminsAccounts.push(_addr);
-        emit Granted(msg.sender,_addr, 0, _addr);
+        admins[_addr] = Role.None;
+        super_admins_accounts.push(_addr);
+        emit Granted(msg.sender,_addr, Role.None, _addr);
     }
 
      /// @dev Allow an Admin.
     function add_admin(address new_admin, address new_contract) external {
         require(ensure_super_admin(msg.sender), "not super admin");
         require(ensure_admin_do_not_exist(new_admin), "admin exists");
-        require(admins[new_admin] == Role(0), "role already set");
+        require(admins[new_admin] == Role.None, "role already set");
         // todo factory call to deploy the contract and get the deployment address deployment address
-        admins[new_admin] = Role(1);
+        admins[new_admin] = Role.Admin;
         admins_contracts[new_admin] = new_admin; // change this with deployed adress
-        adminsAccounts.push(new_admin);
-        emit Granted(msg.sender,new_admin, 1, new_contract);
+        admins_accounts.push(new_admin);
+        emit Granted(msg.sender,new_admin, Role.Admin , new_contract);
     }
 
 
