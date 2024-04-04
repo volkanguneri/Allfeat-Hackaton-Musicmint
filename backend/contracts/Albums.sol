@@ -6,9 +6,11 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 contract Albums is Ownable {
 
     struct Album {
+        uint16 id;
         uint64 maxSupply;
         uint64 price;
         string uri;
+        uint16 currentSongId;
     }
 
     struct Song {
@@ -20,7 +22,7 @@ contract Albums is Ownable {
 
     
     mapping(uint16 albumId => Album) private _albums;
-    mapping(uint16 albumId => Song[] songs) private _albumSongs;
+    mapping(uint16 albumId => mapping(uint16 songID => Song)) private _albumSongs;
 
     // The current album ID. Used to generate next one.
     uint16 private _currentAlbumId;
@@ -47,12 +49,18 @@ contract Albums is Ownable {
         uint64 price,
         string memory album_uri
     ) external onlyOwner returns (uint256) {
+        require(maxSupply > 0, "Max supply must be greater than 0");
+        require(price > 0, "Price must be greater than 0");
+        require(bytes(album_uri).length > 0, "URI must not be empty");
+
         uint16 albumId = _currentAlbumId;
 
         _albums[albumId] = Album({
+            id: albumId,
             maxSupply: maxSupply,
             price: price,
-            uri: album_uri
+            uri: album_uri,
+            currentSongId: 0
         });
 
         emit ItemCreated(msg.sender, albumId, album_uri, 0, maxSupply);
@@ -70,27 +78,46 @@ contract Albums is Ownable {
     ) external onlyOwner returns (uint256) {
         require(maxSupply > 0, "Max supply must be greater than 0");
         require(price > 0, "Price must be greater than 0");
+        require(bytes(songUri).length > 0, "URI must not be empty");
 
         Album storage album = _albums[albumId];
         require(album.maxSupply > 0, "Album does not exist");
 
-        uint256 numberOfSongs = _albumSongs[albumId].length;
+        uint256 numberOfSongs = _albums[albumId].currentSongId;
         require(numberOfSongs < maxSupply, "Maximum supply reached");
         require(numberOfSongs <= type(uint16).max, "Value exceeds uint16 range");
 
-        uint16 songId = uint16(numberOfSongs) + 1;
-
-        _albumSongs[albumId].push(Song({
+        uint16 songId = album.currentSongId;
+        
+    
+        _albumSongs[albumId][songId] = Song({
             id: songId,
             maxSupply: maxSupply,
             price: price,
             uri: songUri
+        });
 
-        }));
+        album.currentSongId++;
 
         emit ItemCreated(msg.sender, albumId, songUri, songId, maxSupply);
 
         return songId;
+    }
+
+    function getAlbum(uint16 albumId) external view returns (Album memory) {
+        return _albums[albumId];
+    }
+
+    function getAlbumsCount() external view returns (uint256) {
+        return _currentAlbumId;
+    }
+
+    function getSong(uint16 albumId, uint16 songId) external view returns (Song memory) {
+        return _albumSongs[albumId][songId];
+    }
+
+    function getAlbumSongsCount(uint16 albumId) external view returns (uint256) {
+        return _albums[albumId].currentSongId;
     }
 
 }
