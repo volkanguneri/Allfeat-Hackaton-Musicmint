@@ -1,18 +1,20 @@
+import Link from "next/link";
+
 const Navbar = () => {
   return (
-    <>
+    <nav>
       <ul className="flex items-center justify-center gap-10">
         <li>
-          <a>Home</a>
+          <a href="/">Home</a>
         </li>
         <li>
-          <a>Album</a>
+          <a href="/album">Album</a>
         </li>
         <li>
-          <a>Admin</a>
+          <a href="/admin">Admin</a>
         </li>
       </ul>
-    </>
+    </nav>
   );
 };
 

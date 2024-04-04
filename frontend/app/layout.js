@@ -14,7 +14,7 @@ const { WALLETCONNECT_ID } = process.env;
 
 const config = getDefaultConfig({
   appName: "Musicmint",
-  projectId: WALLETCONNECT_ID,
+  projectId: WALLETCONNECT_ID || "7c1cde6251fa4b704d96a408856a0525",
   chains: [mainnet, polygon, sepolia],
   ssr: true, // if your dApp uses server side rendering (SSR)
 });
