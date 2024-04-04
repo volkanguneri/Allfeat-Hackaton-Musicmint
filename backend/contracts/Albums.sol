@@ -2,8 +2,9 @@
 pragma solidity ^0.8.24;
 
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {ERC1155Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol";
 
-contract Albums is OwnableUpgradeable {
+contract Albums is OwnableUpgradeable, ERC1155Upgradeable {
 
     struct Album {
         uint16 id;
@@ -19,7 +20,6 @@ contract Albums is OwnableUpgradeable {
         uint64 price;
         string uri;
     }
-
     
     mapping(uint16 albumId => Album) private _albums;
     mapping(uint16 albumId => mapping(uint16 songID => Song)) private _albumSongs;
@@ -45,6 +45,7 @@ contract Albums is OwnableUpgradeable {
     function initialize(
         address _user
     ) external initializer {
+        __ERC1155_init(""); // TODO: Add metadata URI
         _transferOwnership(_user);
     }
     
@@ -106,6 +107,33 @@ contract Albums is OwnableUpgradeable {
         emit ItemCreated(msg.sender, albumId, songUri, songId, maxSupply);
 
         return songId;
+    }
+
+    function mintAlbum(uint16 albumId) public payable returns (uint16) {
+        Album storage album = _albums[albumId];
+        require(album.maxSupply > 0, "Album does not exist");
+        require(album.price == msg.value, "Invalid price");
+
+        _mint(msg.sender, album.id, 1, ""); // TODO: id should be formed by another way to avoid conflicts with song ids
+
+        emit ItemMinted(owner(), msg.sender, album.id, 0);
+
+        return album.id;
+    }
+
+    function mintSong(uint16 albumId, uint16 songId) public payable returns (uint16) {
+        Album storage album = _albums[albumId];
+        require(album.maxSupply > 0, "Album does not exist");
+
+        Song storage song = _albumSongs[albumId][songId];
+        require(song.maxSupply > 0, "Song does not exist");
+        require(song.price == msg.value, "Invalid price");
+
+        _mint(msg.sender, song.id, 1, ""); // TODO: id should be formed by another way to avoid conflicts with album ids
+
+        emit ItemMinted(owner(), msg.sender, album.id, song.id);
+
+        return song.id;
     }
 
     function getAlbum(uint16 albumId) external view returns (Album memory) {
