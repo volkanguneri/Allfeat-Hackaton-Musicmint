@@ -29,11 +29,11 @@ contract Admins is Ownable{
         admins[initialOwner] = Role.SuperAdmin;
     }
 
-    function ensure_super_admin(address _addr) internal view returns (bool){
+    function ensureSuperAdmin(address _addr) internal view returns (bool){
         return uint(admins[_addr]) == uint(Role.SuperAdmin);
     }
 
-    function ensure_admin_do_not_exist(address _addr) internal view returns (bool){
+    function ensureAdminDoNotExist(address _addr) internal view returns (bool){
         for (uint256 i = 0; i < super_admins_accounts.length; i++) {
             if (admins_accounts[i] == _addr) {
                return false;
@@ -42,7 +42,7 @@ contract Admins is Ownable{
         return true;
     }
 
-    function ensure_superadmin_do_not_exist(address _addr) internal view returns (bool){
+    function ensureSuperAdminDoNotExist(address _addr) internal view returns (bool){
         for (uint256 i = 0; i < super_admins_accounts.length; i++) {
             if (super_admins_accounts[i] == _addr) {
                return false;
@@ -53,9 +53,9 @@ contract Admins is Ownable{
 
 
     /// @dev Allow a superAdmin.
-    function add_super_admin(address _addr) external onlyOwner {
-        require(ensure_superadmin_do_not_exist(_addr));
-        require(ensure_admin_do_not_exist(_addr));
+    function addSuperAdmin(address _addr) external onlyOwner {
+        require(ensureSuperAdminDoNotExist(_addr));
+        require(ensureAdminDoNotExist(_addr));
         // todo factory call to deploy the contract and get the deployment address deployment address
         address _deployedTO = address(0);
         admins[_addr] = Role.SuperAdmin;
@@ -64,7 +64,7 @@ contract Admins is Ownable{
     }
 
     /// @dev Remove a superAdmin.
-    function remove_super_admin(address _addr) external onlyOwner {
+    function removeSuperAdmin(address _addr) external onlyOwner {
         for (uint256 i = 0; i < super_admins_accounts.length; i++) {
             if (super_admins_accounts[i] == _addr) {
                delete super_admins_accounts[i];
@@ -77,9 +77,9 @@ contract Admins is Ownable{
     }
 
      /// @dev Allow an Admin.
-    function add_admin(address new_admin, address new_contract) external {
-        require(ensure_super_admin(msg.sender), "not super admin");
-        require(ensure_admin_do_not_exist(new_admin), "admin exists");
+    function addAdmin(address new_admin, address new_contract) external {
+        require(ensureSuperAdmin(msg.sender), "not super admin");
+        require(ensureAdminDoNotExist(new_admin), "admin exists");
         require(admins[new_admin] == Role.None, "role already set");
         // todo factory call to deploy the contract and get the deployment address deployment address
         admins[new_admin] = Role.Admin;
