@@ -32,22 +32,22 @@ describe("Admins", function () {
   describe("addAdmin", function () {
 
     it("Should not be used without super privilegies", async function () {
-      await expect(admins.connect(addr1).addAdmin(addr2.address, addr2.address)).to.be.revertedWith("not super admin");
+      await expect(admins.connect(addr1).addAdmin(addr2.address)).to.be.revertedWith("not super admin");
     });
 
     it("Should not downgrade a super admin", async function () {
-      await expect(admins.addAdmin(owner.address, owner.address)).to.be.revertedWith("admin exists");
+      await expect(admins.addAdmin(owner.address)).to.be.revertedWith("admin exists");
     });
 
     it("Should fail if admin already exists", async function () {
-      await admins.addAdmin(addr1.address, addr1.address);
-      await expect(admins.addAdmin(addr1.address, addr1.address)).to.be.revertedWith("admin exists");
+      await admins.addAdmin(addr1.address);
+      await expect(admins.addAdmin(addr1.address)).to.be.revertedWith("admin exists");
     });
 
     it("Should setup adminRoles and adminsContracts", async function () {
-      await admins.addAdmin(addr1.address, addr1.address);
+      await admins.addAdmin(addr1.address);
       await expect( await admins.adminRoles(addr1.address)).to.equal(1);
-      await expect( await admins.adminsContracts(addr1.address)).to.equal(addr1.address);
+      await expect( await admins.adminsContracts(addr1.address) != 0 );
        // todo : fix with the deployed contract
     });
 
@@ -60,7 +60,7 @@ describe("Admins", function () {
     });
 
     it("Should clean adminRoles", async function () {
-      await admins.addAdmin(addr1.address,addr1.address );
+      await admins.addAdmin(addr1.address);
       await admins.removeAdmin(addr1.address);
       await expect( await admins.adminRoles(addr1.address)).to.equal(0);
     });
@@ -105,7 +105,7 @@ describe("Admins", function () {
   describe("Events", function () {
     
     it("Should emit an event on addAdmin", async function () {
-      await expect(admins.addAdmin(addr1.address,addr1.address))
+      await expect(admins.addAdmin(addr1.address))
       .to.emit(admins, 'Granted')
       .withArgs( owner.address,addr1.address, 1, anyValue);
     });

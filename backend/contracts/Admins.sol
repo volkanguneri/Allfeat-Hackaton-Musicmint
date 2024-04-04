@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol"; 
+import "./Albums.sol";
 /// @custom:security-contact contact@adrien-v.com
 /**
  * @title Admins Contract
@@ -112,15 +113,30 @@ contract Admins is Ownable{
      * @notice Only existing superadmins can add new admins.
      //TODO newContract will be removed to be used after deploy
      */
-    function addAdmin(address newAdmin, address newContract) external {
+    function addAdmin(address newAdmin) external {
         require(ensureAdminDoNotExist(newAdmin), "admin exists");
         require(ensureSuperAdmin(msg.sender), "not super admin");
         require(adminRoles[newAdmin] == Role.None, "role already set");
         // todo factory call to deploy the contract and get the deployment address deployment address
         adminRoles[newAdmin] = Role.Admin;
-        adminsContracts[newAdmin] = newAdmin; // change this with deployed adress
-        adminsAccounts.push(newAdmin);
-        emit Granted(msg.sender,newAdmin, Role.Admin , newContract);
+        bytes memory collectionBytecode = type(Albums).creationCode;
+        bytes32 salt = keccak256(abi.encodePacked(newAdmin,  block.timestamp));
+        address collectionAddress;
+        // assembly {
+        //     collectionAddress := create2(
+        //         0,
+        //         add(collectionBytecode, 0x20),
+        //         mload(collectionBytecode),
+        //         salt
+        //     )
+        //     if iszero(extcodesize(collectionAddress)) {
+        //         // revert if something gone wrong (collectionAddress doesn't contain an address)
+        //         revert(0, 0)
+        //     }
+        // }
+        adminsContracts[newAdmin] = collectionAddress; // change this with deployed address
+        adminsAccounts.push(collectionAddress);
+        emit Granted(msg.sender,newAdmin, Role.Admin, collectionAddress);
     }
 
     function removeAdmin(address oldAdmin) external {
