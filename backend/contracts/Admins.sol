@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol"; 
+import "@openzeppelin/contracts/proxy/Clones.sol";
 import "./Albums.sol";
 /// @custom:security-contact contact@adrien-v.com
 /**
@@ -30,12 +31,15 @@ contract Admins is Ownable{
     mapping(address => address) public adminsContracts;
     address[] public adminsAccounts;
     address[] private superAdminsAccounts;
+
+    address private immutable _albumsTemplate;
     
     /**
      * @dev Constructor that sets the deployer as the initial admin.
      */
     constructor(address initialOwner) Ownable(initialOwner){
         adminRoles[initialOwner] = Role.SuperAdmin;
+        _albumsTemplate = address(new Albums());
     }
 
     /**
@@ -117,26 +121,17 @@ contract Admins is Ownable{
         require(ensureAdminDoNotExist(newAdmin), "admin exists");
         require(ensureSuperAdmin(msg.sender), "not super admin");
         require(adminRoles[newAdmin] == Role.None, "role already set");
-        // todo factory call to deploy the contract and get the deployment address deployment address
+        
         adminRoles[newAdmin] = Role.Admin;
-        bytes memory collectionBytecode = type(Albums).creationCode;
-        bytes32 salt = keccak256(abi.encodePacked(newAdmin,  block.timestamp));
-        address collectionAddress;
-        // assembly {
-        //     collectionAddress := create2(
-        //         0,
-        //         add(collectionBytecode, 0x20),
-        //         mload(collectionBytecode),
-        //         salt
-        //     )
-        //     if iszero(extcodesize(collectionAddress)) {
-        //         // revert if something gone wrong (collectionAddress doesn't contain an address)
-        //         revert(0, 0)
-        //     }
-        // }
-        adminsContracts[newAdmin] = collectionAddress; // change this with deployed address
-        adminsAccounts.push(collectionAddress);
-        emit Granted(msg.sender,newAdmin, Role.Admin, collectionAddress);
+
+        address clone = Clones.clone(_albumsTemplate);
+        Albums(clone).initialize(
+            newAdmin
+        );
+
+        adminsContracts[newAdmin] = clone;
+        adminsAccounts.push(clone);
+        emit Granted(msg.sender, newAdmin, Role.Admin, clone);
     }
 
     function removeAdmin(address oldAdmin) external {

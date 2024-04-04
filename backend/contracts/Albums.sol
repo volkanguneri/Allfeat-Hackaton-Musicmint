@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-contract Albums is Ownable {
+contract Albums is OwnableUpgradeable {
 
     struct Album {
         uint16 id;
@@ -42,7 +42,11 @@ contract Albums is Ownable {
         uint16 song_id
     );
 
-    constructor(address initialOwner) Ownable(initialOwner) {}
+    function initialize(
+        address _user
+    ) external initializer {
+        _transferOwnership(_user);
+    }
     
     function createAlbum(
         uint64 maxSupply,
