@@ -1,5 +1,10 @@
-import Image from "next/image";
+import Main from "@/components/Main";
+import Link from "next/link";
 
 export default function Home() {
-  return <h1>ljchvalejv</h1>;
+  return (
+    <>
+      <Main />
+    </>
+  );
 }
