@@ -46,8 +46,8 @@ describe("Admins", function () {
 
     it("Should setup admins and contracts", async function () {
       await admins.addAdmin(addr1.address, addr1.address);
-      await expect( await admins.admins(addr1.address)).to.equal(1);
-      await expect( await admins.admins_contracts(addr1.address)).to.equal(addr1.address);
+      await expect( await admins.adminRoles(addr1.address)).to.equal(1);
+      await expect( await admins.adminsContracts(addr1.address)).to.equal(addr1.address);
        // todo : fix with the deployed contract
     });
 

@@ -20,22 +20,22 @@ contract Admins is Ownable{
         SuperAdmin
     }
     // Mapping of the user roles.
-    mapping(address => Role) public admins;
-    mapping(address => address) public admins_contracts;
-    address[] public admins_accounts;
-    address[] private super_admins_accounts;
+    mapping(address => Role) public adminRoles;
+    mapping(address => address) public adminsContracts;
+    address[] public adminsAccounts;
+    address[] private superAdminsAccounts;
     // Owner of the smart contract.
     constructor(address initialOwner) Ownable(initialOwner){
-        admins[initialOwner] = Role.SuperAdmin;
+        adminRoles[initialOwner] = Role.SuperAdmin;
     }
 
     function ensureSuperAdmin(address _addr) internal view returns (bool){
-        return uint(admins[_addr]) == uint(Role.SuperAdmin);
+        return uint(adminRoles[_addr]) == uint(Role.SuperAdmin);
     }
 
     function ensureAdminDoNotExist(address _addr) internal view returns (bool){
-        for (uint256 i = 0; i < super_admins_accounts.length; i++) {
-            if (admins_accounts[i] == _addr) {
+        for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
+            if (adminsAccounts[i] == _addr) {
                return false;
             }
         }
@@ -43,8 +43,8 @@ contract Admins is Ownable{
     }
 
     function ensureSuperAdminDoNotExist(address _addr) internal view returns (bool){
-        for (uint256 i = 0; i < super_admins_accounts.length; i++) {
-            if (super_admins_accounts[i] == _addr) {
+        for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
+            if (superAdminsAccounts[i] == _addr) {
                return false;
             }
         }
@@ -58,34 +58,34 @@ contract Admins is Ownable{
         require(ensureAdminDoNotExist(_addr));
         // todo factory call to deploy the contract and get the deployment address deployment address
         address _deployedTO = address(0);
-        admins[_addr] = Role.SuperAdmin;
-        super_admins_accounts.push(_addr);
+        adminRoles[_addr] = Role.SuperAdmin;
+        superAdminsAccounts.push(_addr);
         emit Granted(msg.sender,_addr, Role.SuperAdmin, _deployedTO);
     }
 
     /// @dev Remove a superAdmin.
     function removeSuperAdmin(address _addr) external onlyOwner {
-        for (uint256 i = 0; i < super_admins_accounts.length; i++) {
-            if (super_admins_accounts[i] == _addr) {
-               delete super_admins_accounts[i];
+        for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
+            if (superAdminsAccounts[i] == _addr) {
+               delete superAdminsAccounts[i];
             }
         }
         //address _deployedTO = address(0);
-        admins[_addr] = Role.None;
-        super_admins_accounts.push(_addr);
+        adminRoles[_addr] = Role.None;
+        superAdminsAccounts.push(_addr);
         emit Granted(msg.sender,_addr, Role.None, _addr);
     }
 
      /// @dev Allow an Admin.
-    function addAdmin(address new_admin, address new_contract) external {
+    function addAdmin(address new_admin, address newContract) external {
         require(ensureSuperAdmin(msg.sender), "not super admin");
         require(ensureAdminDoNotExist(new_admin), "admin exists");
-        require(admins[new_admin] == Role.None, "role already set");
+        require(adminRoles[new_admin] == Role.None, "role already set");
         // todo factory call to deploy the contract and get the deployment address deployment address
-        admins[new_admin] = Role.Admin;
-        admins_contracts[new_admin] = new_admin; // change this with deployed adress
-        admins_accounts.push(new_admin);
-        emit Granted(msg.sender,new_admin, Role.Admin , new_contract);
+        adminRoles[new_admin] = Role.Admin;
+        adminsContracts[new_admin] = new_admin; // change this with deployed adress
+        adminsAccounts.push(new_admin);
+        emit Granted(msg.sender,new_admin, Role.Admin , newContract);
     }
 
 
