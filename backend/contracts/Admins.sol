@@ -56,14 +56,9 @@ contract Admins is Ownable{
     * @return bool Returns true if the address is not an admin, false if it already exists as an admin.
     */
     function ensureAdminDoNotExist(address _addr) internal view returns (bool){
-        for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
-            if (adminsAccounts[i] == _addr) {
-               return false;
-            }
-        }
-        return true;
+         return uint(adminRoles[_addr]) == uint(Role.None);
     }
-    
+
     /**
     * @dev Verifies that the given address is not already listed in the `superAdminsAccounts` array.
     * Useful for maintaining a clean list of SuperAdmins without duplicates. As with `ensureAdminDoNotExist`,
@@ -72,12 +67,13 @@ contract Admins is Ownable{
     * @return bool Returns true if the address is not a super admin, false if it already exists as a super admin.
     */
     function ensureSuperAdminDoNotExist(address _addr) internal view returns (bool){
-        for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
-            if (superAdminsAccounts[i] == _addr) {
-               return false;
-            }
-        }
-        return true;
+        // for (uint256 i = 0; i < superAdminsAccounts.length; i++) {
+        //     if (superAdminsAccounts[i] == _addr) {
+        //        return false;
+        //     }
+        // }
+        // return true;
+        return uint(adminRoles[_addr]) == uint(Role.None);
     }
 
     /**
@@ -87,8 +83,7 @@ contract Admins is Ownable{
     * @notice This action is irreversible through this function and can only be performed by the contract owner.
     */    
     function addSuperAdmin(address _addr) external onlyOwner {
-        require(ensureSuperAdminDoNotExist(_addr));
-        require(ensureAdminDoNotExist(_addr));
+        require(ensureSuperAdminDoNotExist(_addr) && ensureAdminDoNotExist(_addr), "role already set");
         // todo factory call to deploy the contract and get the deployment address deployment address
         address _deployedTO = address(0);
         adminRoles[_addr] = Role.SuperAdmin;
@@ -124,14 +119,24 @@ contract Admins is Ownable{
      //TODO newContract will be removed to be used after deploy
      */
     function addAdmin(address newAdmin, address newContract) external {
-        require(ensureSuperAdmin(msg.sender), "not super admin");
         require(ensureAdminDoNotExist(newAdmin), "admin exists");
+        require(ensureSuperAdmin(msg.sender), "not super admin");
         require(adminRoles[newAdmin] == Role.None, "role already set");
         // todo factory call to deploy the contract and get the deployment address deployment address
         adminRoles[newAdmin] = Role.Admin;
         adminsContracts[newAdmin] = newAdmin; // change this with deployed adress
         adminsAccounts.push(newAdmin);
         emit Granted(msg.sender,newAdmin, Role.Admin , newContract);
+    }
+
+    function removeAdmin(address oldAdmin) external {
+        require(ensureSuperAdmin(msg.sender), "not super admin caller");
+        require(adminRoles[oldAdmin] == Role.Admin, "not an admin");
+        // todo factory call to deploy the contract and get the deployment address deployment address
+        adminRoles[oldAdmin] = Role.None;
+        // deal with adminsContracts[oldAdmin] ?
+        // remove it ? adminsAccounts.push(oldAdmin);
+        emit Granted(msg.sender,oldAdmin, Role.None , oldAdmin);
     }
 
 
