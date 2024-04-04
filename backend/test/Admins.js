@@ -44,15 +44,32 @@ describe("Admins", function () {
       await expect(admins.addAdmin(addr1.address, addr1.address)).to.be.revertedWith("role already set");
     });
 
-    it("Should setup admins and contracts", async function () {
+    it("Should setup adminRoles and adminsContracts", async function () {
       await admins.addAdmin(addr1.address, addr1.address);
       await expect( await admins.adminRoles(addr1.address)).to.equal(1);
       await expect( await admins.adminsContracts(addr1.address)).to.equal(addr1.address);
        // todo : fix with the deployed contract
     });
 
+  });
 
+  describe("addSuperAdmin", function () {
 
+    it("Should not be used without super privilegies", async function () {
+      await expect(admins.connect(addr1).addSuperAdmin(addr2.address)).to.be.reverted;
+    });
+
+    it("Should fail if superadmin already exists", async function () {
+      await admins.addSuperAdmin(addr1.address);
+      await expect(admins.addSuperAdmin(addr1.address)).to.be.reverted;
+    });
+
+    it("Should setup adminRoles", async function () {
+      await admins.addSuperAdmin(addr1.address);
+      await expect( await admins.adminRoles(addr1.address)).to.equal(2);
+       // todo : fix with the deployed contract
+    });
+    
   });
 
    // describe("Events", function () {
