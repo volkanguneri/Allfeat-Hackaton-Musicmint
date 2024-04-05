@@ -1,7 +1,6 @@
 const Footer = () => {
   return (
-    <div className="flex items-center justify-center gap-10 mt-auto">
-      <h2>Musicmint</h2>
+    <div className="flex items-center justify-center gap-40 mt-auto mb-2">
       <p>Copyright@ 2024</p>
     </div>
   );

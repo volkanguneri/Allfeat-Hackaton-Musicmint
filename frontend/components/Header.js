@@ -7,7 +7,7 @@ import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-center max-w-full gap-80 mt-6 mb-80 ">
+    <header className="flex items-center justify-center max-w-full gap-80 mt-6 mb-60">
       <div className="mr-auto">
         <h2>Musicmint</h2>
       </div>
