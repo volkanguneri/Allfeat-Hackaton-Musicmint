@@ -1,42 +1,25 @@
-const hre = require("hardhat");
-const ethers = require("ethers");
-// const fs = require("fs");
+const { ethers } = require("hardhat");
 
 async function main() {
-  // const { chainId } = await ethers.provider.getNetwork();
+  const [deployer] = await ethers.getSigners();
 
-  const Admins = await hre.ethers.getContractFactory("Admins");
-  const admins = await Admins.deploy();
-  await admins.deployed();
-  console.log(`Admins deployed to ${admins.address}`);
+  console.log("Deploying contracts with the account:", deployer.address);
 
-  const data1 = {
-    address: admins.address,
-    abi: JSON.parse(admins.interface.format("json")),
-  };
-  // fs.writeFileSync('./../front/public/contracts/solarNft.json', JSON.stringify(data1))
-  // fs.writeFileSync(`./../front/public/contracts/${chainId}/solarNft.json`, JSON.stringify(data1))
+  const Admins = await ethers.getContractFactory("Admins");
+  const admins = await Admins.deploy(deployer.address);
+
+  console.log("Admins deployed to:", admins.target);
+
+  // ALBUMS DEPLOYMENT
+
+  const Albums = await ethers.getContractFactory("Albums");
+  const albums = await Albums.deploy();
+
+  console.log("Albums deployed to:", albums.target);
 }
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-
-// async function main() {
-//   const [deployer] = await ethers.getSigners();
-
-//   console.log("Deploying contracts with the account:", deployer.address);
-
-//   const Admins = await hre.ethers.getContractFactory("Admins");
-//   const admins = await Admins.deploy();
-//   //   await admins.deployed();
-//   console.log(`Admins deployed to ${admins.address}`);
-// }
-
-// main()
-//   .then(() => process.exit(0))
-//   .catch((error) => {
-//     console.error(error);
-//     process.exit(1);
-//   });
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
