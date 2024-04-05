@@ -2,7 +2,7 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiProvider } from "wagmi";
-import { mainnet, polygon, sepolia } from "wagmi/chains";
+import { mainnet, polygon, sepolia, hardhat } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 import Layout from "@/components/Layout";
@@ -15,7 +15,7 @@ const { WALLETCONNECT_ID } = process.env;
 const config = getDefaultConfig({
   appName: "Musicmint",
   projectId: WALLETCONNECT_ID || "7c1cde6251fa4b704d96a408856a0525",
-  chains: [mainnet, polygon, sepolia],
+  chains: [mainnet, polygon, sepolia, hardhat],
   ssr: true, // if your dApp uses server side rendering (SSR)
 });
 

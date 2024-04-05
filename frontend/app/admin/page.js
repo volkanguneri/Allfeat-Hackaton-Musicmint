@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 // Wagmi
-import { prepareWriteContract, writeContract } from "@wagmi/core";
+import { useWriteContract } from "@wagmi/core";
 
 // Viem
 import { parseAbiItem } from "viem";
@@ -48,19 +48,29 @@ const admin = () => {
     }
   };
 
+  const writeToContract = async (address) => {
+    const { writeContract } = useWriteContract({
+      mutation: {
+        onSuccess: () => {
+          console.log("Transaction has been sent.");
+        },
+        onError: (error) => {
+          console.error(error.shortMessage);
+        },
+      },
+    });
+
+    writeContract({
+      address: contractAddressAdmins,
+      abi: AdminsABI,
+      functionName: "addSuperAdmin",
+      args: [_addr],
+    });
+  };
+
   const createSuperAdmin = async () => {
     try {
-      const { request } = await prepareWriteContract({
-        address: contractAddressAdmins,
-        abi: AdminsABI,
-        functionName: "addSuperAdmin",
-        args: [_addr],
-      });
-
-      const { hash } = await writeContract(request);
-      const data = await waitForTransaction({
-        hash: hash,
-      });
+      await writeToContract(superAdmin);
 
       getGrantedEvents();
     } catch (err) {
@@ -74,7 +84,7 @@ const admin = () => {
         id="adminForm"
         className="flex justify-center items-center flex-col gap-4"
       >
-        <label for="admin" className="text-2xl">
+        <label htmlFor="admin" className="text-2xl">
           Admin
         </label>
         <div className="flex gap-4">
@@ -83,6 +93,8 @@ const admin = () => {
             id="artistName"
             name="artistName"
             className="text-[#15141a] p-1 rounded"
+            value={superAdmin}
+            onChange={(e) => setSuperAdmin(e.target.value)}
             required
           />
           <button
@@ -99,7 +111,7 @@ const admin = () => {
         id="artistForm"
         className="flex justify-center items-center flex-col gap-4"
       >
-        <label for="artist" className="text-2xl">
+        <label htmlFor="artist" className="text-2xl">
           Artist
         </label>
         <div className="flex gap-4">
@@ -121,5 +133,4 @@ const admin = () => {
     </main>
   );
 };
-
 export default admin;
